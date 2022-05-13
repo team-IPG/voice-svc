@@ -1,0 +1,75 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.7'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'jacoco'
+}
+
+group = 'org.ipg'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('springCloudGcpVersion', "3.2.1")
+	set('springCloudVersion', "2021.0.2")
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// deps for GCP including Pub/Sub
+	implementation ('com.google.cloud:spring-cloud-gcp-starter-pubsub') {
+		exclude group: 'io.grpc', module: 'grpc-netty-shaded'
+	}
+	// switching away from netty-shaded addresses defect with netty grpc
+	// https://stackoverflow.com/questions/71920265/jvm-crashes-while-authenticating-pub-sub
+	implementation 'io.grpc:grpc-netty'
+
+	// deps for yugabyte
+	implementation 'com.yugabyte:spring-data-yugabytedb-ysql:2.3.0'
+	//implementation 'com.yugabyte:jdbc-yugabytedb:42.3.0'
+	implementation 'com.zaxxer:HikariCP'
+
+	// test dependencies
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.hamcrest:hamcrest-library'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "com.google.cloud:spring-cloud-gcp-dependencies:${springCloudGcpVersion}"
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+bootJar {
+	// generate non-versioned boot jar
+	archiveFileName.set("${rootProject.name}.jar")
+}
+
+tasks.named("jar") {
+	// don't generate plain jar
+	enabled = false
+}
+
+test {
+	useJUnitPlatform()
+	finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+jacocoTestReport {
+	reports {
+		xml.required = false
+		csv.required = true
+	}
+	dependsOn test // tests are required to run before generating the report
+}
