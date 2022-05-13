@@ -5,7 +5,6 @@ import com.yugabyte.data.jdbc.repository.config.AbstractYugabyteJdbcConfiguratio
 import com.yugabyte.data.jdbc.repository.config.EnableYsqlRepositories;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import org.ipg.namesvc.repo.NameYsqlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +17,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableYsqlRepositories(basePackageClasses = NameYsqlRepository.class)
+//@EnableYsqlRepositories(basePackageClasses = NameYsqlRepository.class)
 public class YsqlDbConfig extends AbstractYugabyteJdbcConfiguration {
 
 	@Bean
