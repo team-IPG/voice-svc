@@ -56,7 +56,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: jacoco-report
-          path: target/site/jacoco/
+          path: build/reports/jacoco/test/html/
 
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
