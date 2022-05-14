@@ -28,6 +28,9 @@ dependencies {
 	// https://stackoverflow.com/questions/71920265/jvm-crashes-while-authenticating-pub-sub
 	implementation 'io.grpc:grpc-netty'
 
+	implementation platform('com.google.cloud:libraries-bom:25.2.0')
+	implementation 'com.google.cloud:google-cloud-texttospeech'
+
 	// deps for yugabyte
 	implementation 'com.yugabyte:spring-data-yugabytedb-ysql:2.3.0'
 	//implementation 'com.yugabyte:jdbc-yugabytedb:42.3.0'
