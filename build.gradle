@@ -29,7 +29,9 @@ dependencies {
 	implementation 'io.grpc:grpc-netty'
 
 	implementation platform('com.google.cloud:libraries-bom:25.2.0')
-	implementation 'com.google.cloud:google-cloud-texttospeech'
+	implementation ('com.google.cloud:google-cloud-texttospeech') {
+		exclude group: 'io.grpc', module: 'grpc-netty-shaded'
+	}
 
 	// deps for yugabyte
 	implementation 'com.yugabyte:spring-data-yugabytedb-ysql:2.3.0'
