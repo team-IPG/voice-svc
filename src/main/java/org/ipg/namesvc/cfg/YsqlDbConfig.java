@@ -26,7 +26,7 @@ public class YsqlDbConfig extends AbstractYugabyteJdbcConfiguration {
 		String port = "5433";
 		Properties poolProperties = new Properties();
 		poolProperties.setProperty("dataSourceClassName", "com.yugabyte.ysql.YBClusterAwareDataSource");
-		poolProperties.setProperty("maximumPoolSize", String.valueOf(10));
+		poolProperties.setProperty("maximumPoolSize", String.valueOf(3));
 		poolProperties.setProperty("dataSource.serverName", hostName);
 		poolProperties.setProperty("dataSource.portNumber", port);
 		poolProperties.setProperty("dataSource.databaseName", "yugabyte");
