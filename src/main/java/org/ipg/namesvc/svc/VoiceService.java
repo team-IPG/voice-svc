@@ -1,7 +1,10 @@
 package org.ipg.namesvc.svc;
 
+import com.google.cloud.spring.pubsub.support.BasicAcknowledgeablePubsubMessage;
 import com.google.cloud.texttospeech.v1beta1.*;
 import com.google.protobuf.ByteString;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -9,6 +12,8 @@ import java.util.Optional;
 
 @Service
 public class VoiceService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(VoiceService.class);
 
     public Optional<ByteString> convert(String text, VoicePreset preset) {
 
@@ -42,10 +47,25 @@ public class VoiceService {
             return Optional.of(audioContents);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.warn("failed to convert text to voice", e);
         }
 
         return Optional.empty();
+    }
+
+    // TODO: implement voice message batch processing
+    // These messages will be emitted by Name Service
+    // Result should re-generate voice recording, persist to storage and ack message
+    public void handleVoiceMessage(String subscriptionName, BasicAcknowledgeablePubsubMessage message) {
+        LOGGER.info("Message received from subscription={}", subscriptionName);
+        String messageTxt = message.getPubsubMessage().getData().toStringUtf8();
+        // handle the voice message
+        // extract preferred name
+        // extract chosen preset
+        // convert to mp3
+        // persist to object storage
+        //ack the message
+        message.ack();
     }
 
 }

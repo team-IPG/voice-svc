@@ -3,6 +3,7 @@ package org.ipg.namesvc.svc;
 import com.google.cloud.pubsub.v1.Subscriber;
 import com.google.cloud.spring.pubsub.PubSubAdmin;
 import com.google.cloud.spring.pubsub.core.PubSubTemplate;
+import com.google.cloud.spring.pubsub.support.BasicAcknowledgeablePubsubMessage;
 import com.google.pubsub.v1.Topic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,14 +53,18 @@ public class PubSubService {
                 this.pubSubTemplate.subscribe(
                         subscriptionName,
                         message -> {
-                            LOGGER.info(
-                                    "Message received from "
-                                            + subscriptionName
-                                            + " subscription: "
-                                            + message.getPubsubMessage().getData().toStringUtf8());
-                            message.ack();
+                            handleMessage(subscriptionName, message);
                         });
 
+    }
+
+    private void handleMessage(String subscriptionName, BasicAcknowledgeablePubsubMessage message) {
+        LOGGER.info(
+                "Message received from "
+                        + subscriptionName
+                        + " subscription: "
+                        + message.getPubsubMessage().getData().toStringUtf8());
+        message.ack();
     }
 
     public void publish(String topicName, String message) {
