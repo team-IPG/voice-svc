@@ -10,7 +10,7 @@ env:
   REGION: us-central1
   SERVICE: voice-svc
   ARTIFACT: voice-svc.jar
-  MIN_INSTANCES: 1
+  MIN_INSTANCES: 2
   MEMORY: 512Mi
 
 jobs:
