@@ -41,10 +41,9 @@ dependencies {
 		exclude group: 'io.grpc', module: 'grpc-netty-shaded'
 	}
 
-	// Yugabyte DB dependencies
-	implementation 'com.yugabyte:spring-data-yugabytedb-ysql:2.3.0'
-	//implementation 'com.yugabyte:jdbc-yugabytedb:42.3.0'
-	implementation 'com.zaxxer:HikariCP'
+	// Yugabyte DB dependencies - NOT NEEDED
+//	implementation 'com.yugabyte:spring-data-yugabytedb-ysql:2.3.0'
+//	implementation 'com.zaxxer:HikariCP'
 
 	// test dependencies
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
