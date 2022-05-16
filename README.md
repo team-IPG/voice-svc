@@ -44,3 +44,19 @@ https://voice-svc-mh6ib2ntwq-uc.a.run.app/voice/ho-say?preset=PRESET_4&rate=1.8
 
 ## API Specification
 https://voice-svc-mh6ib2ntwq-uc.a.run.app/voice/{preferredName}?preset={preferredPreset}&rate={preferredSpeed}
+
+
+### Available Presets in v1.0
+```json
+{
+  "Arabic - Female":    "PRESET_1",
+  "Spanish - Male":     "PRESET_2",
+  "Hindi - Female":     "PRESET_3",
+  "Chinese - Male":     "PRESET_4",
+  "German - Female":    "PRESET_5",
+  "French - Male":      "PRESET_6",
+  "Russian - Female":   "PRESET_7",
+  "English-US - Male":  "PRESET_8",
+  "Tamil - Female":     "PRESET_9"
+}
+```
