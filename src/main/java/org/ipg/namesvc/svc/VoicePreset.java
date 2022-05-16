@@ -11,17 +11,21 @@ public enum VoicePreset {
      * es-US-Wavenet-B  (male - Spanish )
      * hi-IN-Wavenet-A ( female - Hindi )
      * cmn-CN-Wavenet-B (Male - Chinese)
-     * de-DE-Standard-A (Female - German)
-     * fr-CA-Wavenet-B (Male - French )
-     * ru-RU-Standard-A (Female - Russian )
+     * de-DE-Wavenet-A (Female - German)
+     * fr-FR-Wavenet-B (Male - French )
+     * ru-RU-Wavenet-A (Female - Russian )
      * en-US-Wavenet-A (Male - English-US)
      */
 
     //TODO: CURATE OUR PRESETS
-    PRESET_1("Arabic - Female", "en-US","en-US-Wavenet-F", SsmlVoiceGender.FEMALE, AudioEncoding.MP3),
-    PRESET_2("Spanish - Male", "en-US", "en-US-Wavenet-F", SsmlVoiceGender.MALE, AudioEncoding.MP3),
-    PRESET_3("Example 2", "en-US","en-US-Wavenet-J", SsmlVoiceGender.MALE, AudioEncoding.MP3),
-    PRESET_4("Example 3", "en-US","en-US-Wavenet-J", SsmlVoiceGender.NEUTRAL, AudioEncoding.MP3);
+    PRESET_1("Arabic - Female", "ar-XA","ar-XA-Wavenet-A", SsmlVoiceGender.FEMALE, AudioEncoding.MP3),
+    PRESET_2("Spanish - Male", "es-US", "es-US-Wavenet-B", SsmlVoiceGender.MALE, AudioEncoding.MP3),
+    PRESET_3("Hindi - Female", "hi-IN","hi-IN-Wavenet-A", SsmlVoiceGender.FEMALE, AudioEncoding.MP3),
+    PRESET_4("Chinese - Male", "cmn-CN","cmn-CN-Wavenet-B", SsmlVoiceGender.MALE, AudioEncoding.MP3),
+    PRESET_5("German - Female", "de-DE","de-DE-Wavenet-A", SsmlVoiceGender.FEMALE, AudioEncoding.MP3),
+    PRESET_6("French - Male", "fr-FR", "fr-FR-Wavenet-B", SsmlVoiceGender.MALE, AudioEncoding.MP3),
+    PRESET_7("Russian - Female", "ru-RU","ru-RU-Wavenet-A", SsmlVoiceGender.FEMALE, AudioEncoding.MP3),
+    PRESET_8("English-US - Male", "en-US","en-US-Wavenet-A", SsmlVoiceGender.MALE, AudioEncoding.MP3);
 
     public final static String DEFAULT_PRESET = "PRESET_1";
     public final static String DEFAULT_RATE = "1.0";
@@ -65,4 +69,3 @@ public enum VoicePreset {
         }
     }
 }
-
