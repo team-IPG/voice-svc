@@ -33,6 +33,11 @@ jobs:
           java-version: 17
           distribution: 'adopt'
 
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
       # Use the gradle-build-action which caches by default
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
@@ -58,10 +63,6 @@ jobs:
           name: jacoco-report
           path: build/reports/jacoco/test/html/
 
-      - id: 'auth'
-        uses: 'google-github-actions/auth@v0'
-        with:
-          credentials_json: '${{ secrets.GCP_SA_KEY }}'
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v0
