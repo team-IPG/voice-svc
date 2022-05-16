@@ -20,7 +20,7 @@ ext {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
-	// deps for GCP including Pub/Sub
+	// GCP basics and Pub/Sub Events dependencies
 	implementation ('com.google.cloud:spring-cloud-gcp-starter-pubsub') {
 		exclude group: 'io.grpc', module: 'grpc-netty-shaded'
 	}
@@ -28,12 +28,20 @@ dependencies {
 	// https://stackoverflow.com/questions/71920265/jvm-crashes-while-authenticating-pub-sub
 	implementation 'io.grpc:grpc-netty'
 
+	// GCP Platform versions (for Text and Storage sdks)
 	implementation platform('com.google.cloud:libraries-bom:25.2.0')
+
+	// Text-to-Speech dependencies
 	implementation ('com.google.cloud:google-cloud-texttospeech') {
 		exclude group: 'io.grpc', module: 'grpc-netty-shaded'
 	}
 
-	// deps for yugabyte
+	// Object Storage dependencies
+	implementation ('com.google.cloud:google-cloud-storage') {
+		exclude group: 'io.grpc', module: 'grpc-netty-shaded'
+	}
+
+	// Yugabyte DB dependencies
 	implementation 'com.yugabyte:spring-data-yugabytedb-ysql:2.3.0'
 	//implementation 'com.yugabyte:jdbc-yugabytedb:42.3.0'
 	implementation 'com.zaxxer:HikariCP'
