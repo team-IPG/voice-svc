@@ -2,17 +2,14 @@ package org.ipg.namesvc.svc;
 
 import com.google.api.gax.paging.Page;
 import com.google.cloud.storage.*;
-import com.google.common.io.ByteStreams;
 import com.google.protobuf.ByteString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Spliterator;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -31,7 +28,7 @@ public class VoiceStorageService {
      * @return object as ByteString
      */
     public Optional<ByteString> load(String filename) {
-        return getObjectBytes(BUCKET, filename);
+        return getObject(BUCKET, filename);
     }
 
     public List<String> list(String bucketName) {
@@ -55,7 +52,7 @@ public class VoiceStorageService {
      * @param objectName
      * @return optional ByteString
      */
-    protected Optional<ByteString> getObjectBytes(String bucketName, String objectName) {
+    protected Optional<ByteString> getObject(String bucketName, String objectName) {
         Storage storage = StorageOptions.getDefaultInstance().getService();
         BlobId blobId = BlobId.of(bucketName, objectName);
         try {
