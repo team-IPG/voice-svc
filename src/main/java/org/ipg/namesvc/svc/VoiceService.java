@@ -15,7 +15,15 @@ public class VoiceService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VoiceService.class);
 
-    public Optional<ByteString> convert(String text, VoicePreset preset) {
+
+    public Optional<ByteString> convert(String text, VoicePreset preset, double desiredRate) {
+        return convert(text, preset.getLanguageCode(), preset.getVoiceName(), preset.getVoiceGender(), preset.getEncoding(), desiredRate);
+    }
+
+    public Optional<ByteString> convert(String text, String language, String voiceName, SsmlVoiceGender gender, AudioEncoding encoding, double desiredRate) {
+
+        // Box the rate into acceptable range
+        double rate = adjustRate(desiredRate);
 
         // Instantiates a client
         try (TextToSpeechClient textToSpeechClient = TextToSpeechClient.create()) {
@@ -25,16 +33,16 @@ public class VoiceService {
             // Build the voice request
             VoiceSelectionParams voice =
                     VoiceSelectionParams.newBuilder()
-                            .setName(preset.getVoiceName())
-                            .setLanguageCode(preset.getLanguageCode()) // languageCode = "en_us"
-                            .setSsmlGender(preset.getVoiceGender()) // ssmlVoiceGender = SsmlVoiceGender.FEMALE
+                            .setName(voiceName)
+                            .setLanguageCode(language) // languageCode = "en_us"
+                            .setSsmlGender(gender) // ssmlVoiceGender = SsmlVoiceGender.FEMALE
                             .build();
 
             // Select the type of audio file you want returned
             AudioConfig audioConfig =
                     AudioConfig.newBuilder()
-                            .setAudioEncoding(preset.getEncoding()) // MP3 audio.
-                            .setSpeakingRate(preset.getRate())
+                            .setAudioEncoding(encoding) // MP3 audio.
+                            .setSpeakingRate(rate)
                             .build();
 
             // Perform the text-to-speech request
@@ -51,6 +59,18 @@ public class VoiceService {
         }
 
         return Optional.empty();
+    }
+
+    double adjustRate(double desiredRate) {
+        if (desiredRate < .5) {
+            LOGGER.info("Desired rate is too low, trimming rate to min=.5");
+            return .5d;
+        }
+        if (desiredRate > 3d) {
+            LOGGER.info("Desired rate is too high, trimming rate to max=3");
+            return 3d;
+        }
+        return desiredRate;
     }
 
     // TODO: implement voice message batch processing

@@ -1,5 +1,7 @@
 package org.ipg.namesvc.web;
 
+import com.google.cloud.texttospeech.v1beta1.AudioEncoding;
+import com.google.cloud.texttospeech.v1beta1.SsmlVoiceGender;
 import com.google.protobuf.ByteString;
 import org.ipg.namesvc.svc.VoicePreset;
 import org.ipg.namesvc.svc.VoiceService;
@@ -28,11 +30,28 @@ public class VoiceController {
         this.voiceStorageService = voiceStorageService;
     }
 
+    @GetMapping("/test/{text}")
+    public ResponseEntity<byte[]> testvoice(@PathVariable String text,
+                                        @RequestParam String language,
+                                        @RequestParam String voice,
+                                        @RequestParam(required = false, defaultValue = VoicePreset.DEFAULT_RATE) double rate)
+    {
+        Optional<ByteString> audio = voiceService.convert(text, language, voice, SsmlVoiceGender.NEUTRAL, AudioEncoding.MP3, rate);
+        if (voice.isEmpty()) {
+            throw new IllegalArgumentException("unable to convert text to voice");
+        }
+        HttpHeaders headers = buildMediaHeaders();
+        byte[] media = audio.get().toByteArray();
+        return new ResponseEntity<>(media, headers, HttpStatus.OK);
+    }
+
     @GetMapping("/voice/{text}")
     public ResponseEntity<byte[]> voice(@PathVariable String text,
-                                        @RequestParam(name = "preset", required = false, defaultValue = VoicePreset.DEFAULT) VoicePreset preset) {
-        LOGGER.info("converting text='{}' using preset='{}'", text, preset);
-        Optional<ByteString> voice = voiceService.convert(text, preset);
+                                        @RequestParam(required = false, defaultValue = VoicePreset.DEFAULT_PRESET) VoicePreset preset,
+                                        @RequestParam(required = false, defaultValue = VoicePreset.DEFAULT_RATE) double rate)
+    {
+        LOGGER.info("converting text='{}' using preset='{}' and rate={}", text, preset, rate);
+        Optional<ByteString> voice = voiceService.convert(text, preset, rate);
         if (voice.isEmpty()) {
             throw new IllegalArgumentException("unable to convert text to voice");
         }
