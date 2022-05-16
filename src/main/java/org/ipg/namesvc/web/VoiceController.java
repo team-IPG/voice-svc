@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
+
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
 public class VoiceController {
@@ -61,10 +64,10 @@ public class VoiceController {
     }
 
     @GetMapping("/voicefile/{file}")
-    public ResponseEntity<byte[]> voice(@PathVariable String file) {
+    public ResponseEntity<byte[]> voiceFile(@PathVariable String file) {
         Optional<ByteString> voice = voiceStorageService.load(file);
         if (voice.isEmpty()) {
-            throw new IllegalArgumentException("unable to find voice file + " + file);
+            throw new ResponseStatusException(NOT_FOUND, "Unable to find file with name=" + file);
         }
         HttpHeaders headers = buildMediaHeaders();
         byte[] media = voice.get().toByteArray();
