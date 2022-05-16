@@ -40,3 +40,7 @@ https://voice-svc-mh6ib2ntwq-uc.a.run.app/voice/johnny?preset=PRESET2
 https://voice-svc-mh6ib2ntwq-uc.a.run.app/voice/johnny?preset=PRESET2&speed=1.2
 
 https://voice-svc-mh6ib2ntwq-uc.a.run.app/voice/ho-say?preset=PRESET_4&rate=1.8
+
+
+## API Specification
+https://voice-svc-mh6ib2ntwq-uc.a.run.app/voice/{preferredName}?preset={preferredPreset}&rate={preferredSpeed}
