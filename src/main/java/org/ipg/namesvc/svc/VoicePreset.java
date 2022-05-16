@@ -11,6 +11,8 @@ public enum VoicePreset {
     PRESET_2("en-US", "en-US-Wavenet-F", SsmlVoiceGender.MALE,1.2d,AudioEncoding.MP3),
     PRESET_3("en-US","en-US-Wavenet-J", SsmlVoiceGender.MALE,1.3d,AudioEncoding.MP3);
 
+    public final static String DEFAULT = "PRESET_1";
+
     private final String languageCode;
     private final String voiceName;
     private final SsmlVoiceGender voiceGender;
