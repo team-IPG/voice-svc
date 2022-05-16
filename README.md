@@ -4,47 +4,27 @@
 
 provice services for generating and retrieving voice recordings
 
-## pre-requisite
+## REST APIs
 
-Download [GCP credentials json file](https://github.com/team-IPG/foundation/blob/main/key.json) and store on your machine
+### Convert text to audio
 
-```bash
-# example
-/Users/john/key.json
-```
+`GET /voice/{text}/?preset={presetName}&rate={rate}`
 
-## running locally
+- {text} : input text you would like converted to audio
+- {presetName} : one of 9 available custom voice presets (see below)
+- {rate}: decimal number between .5 and 1.5
 
-Set the environment variable for GCP credentials
-```bash
-export GOOGLE_APPLICATION_CREDENTIALS=/Users/john/key.json
-```
+Example: default `preset` & default `rate` for text `johnny`
 
-Execute the gradle wrapper bootRun task
-```bash
-./gradlew bootRun
-```
-
-The bootRun task will build the project using Gradle and start the Spring boot application on port **8081** (or whatever is specified in application.properties for server.port)
-
-
-## API: convert text to audio
-
-### example: default preset & speed
 https://voice-svc-mh6ib2ntwq-uc.a.run.app/voice/johnny
 
-### example: optional preset & default speed
+Example: voice `PRESET_2` & default `rate` for text `johnny`
+
 https://voice-svc-mh6ib2ntwq-uc.a.run.app/voice/johnny?preset=PRESET2
 
-### example: optional preset & custom speed
-https://voice-svc-mh6ib2ntwq-uc.a.run.app/voice/johnny?preset=PRESET2&speed=1.2
+Example: voice `PRESET_4` &  `rate` of `.8` for text `johnny`
 
-https://voice-svc-mh6ib2ntwq-uc.a.run.app/voice/ho-say?preset=PRESET_4&rate=1.8
-
-
-## API Specification
-https://voice-svc-mh6ib2ntwq-uc.a.run.app/voice/{preferredName}?preset={preferredPreset}&rate={preferredSpeed}
-
+https://voice-svc-mh6ib2ntwq-uc.a.run.app/voice/ho-say?preset=PRESET_4&rate=.8
 
 ### Available Presets in v1.0
 ```json
@@ -60,3 +40,25 @@ https://voice-svc-mh6ib2ntwq-uc.a.run.app/voice/{preferredName}?preset={preferre
   "Tamil - Female":     "PRESET_9"
 }
 ```
+
+## Local Run: Pre-Requisites
+
+Download [GCP credentials json file](https://github.com/team-IPG/foundation/blob/main/key.json) and store on your machine
+
+```bash
+# example
+/Users/john/key.json
+```
+## Local Run: Gradle Wrapper & terminal
+
+Set the environment variable for GCP credentials
+```bash
+export GOOGLE_APPLICATION_CREDENTIALS=/Users/john/key.json
+```
+
+Execute the gradle wrapper bootRun task
+```bash
+./gradlew bootRun
+```
+
+The bootRun task will build the project using Gradle and start the Spring boot application on port **8081** (or whatever is specified in application.properties for server.port)
