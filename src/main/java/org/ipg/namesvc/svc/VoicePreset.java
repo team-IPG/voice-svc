@@ -12,10 +12,17 @@ public enum VoicePreset {
     PRESET_3("en-US","en-US-Wavenet-J", SsmlVoiceGender.MALE, AudioEncoding.MP3),
     PRESET_4("en-US","en-US-Wavenet-J", SsmlVoiceGender.NEUTRAL, AudioEncoding.MP3);
 
-    //TODO: Rate options: SLOW, MEDIUM, FAST
-
     public final static String DEFAULT_PRESET = "PRESET_1";
-    public final static String DEFAULT_RATE = "1.4";
+    public final static String DEFAULT_RATE = "1.0";
+
+    //NOTE: Rate options for UI: SLOW, MEDIUM, FAST
+    public enum Rate {
+        SLOW(.6d), MEDIUM(1.0d), FAST(1.8d);
+        private final double speed;
+        Rate(double speed) {
+            this.speed = speed;
+        }
+    }
 
     private final String languageCode;
     private final String voiceName;
