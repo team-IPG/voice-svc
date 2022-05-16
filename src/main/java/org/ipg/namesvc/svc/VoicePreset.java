@@ -15,6 +15,7 @@ public enum VoicePreset {
      * fr-FR-Wavenet-B (Male - French )
      * ru-RU-Wavenet-A (Female - Russian )
      * en-US-Wavenet-A (Male - English-US)
+     * ta-IN-Wavenet-A (Female - Tamil )
      */
 
     //TODO: CURATE OUR PRESETS
@@ -25,7 +26,8 @@ public enum VoicePreset {
     PRESET_5("German - Female", "de-DE","de-DE-Wavenet-A", SsmlVoiceGender.FEMALE, AudioEncoding.MP3),
     PRESET_6("French - Male", "fr-FR", "fr-FR-Wavenet-B", SsmlVoiceGender.MALE, AudioEncoding.MP3),
     PRESET_7("Russian - Female", "ru-RU","ru-RU-Wavenet-A", SsmlVoiceGender.FEMALE, AudioEncoding.MP3),
-    PRESET_8("English-US - Male", "en-US","en-US-Wavenet-A", SsmlVoiceGender.MALE, AudioEncoding.MP3);
+    PRESET_8("English-US - Male", "en-US","en-US-Wavenet-A", SsmlVoiceGender.MALE, AudioEncoding.MP3),
+    PRESET_9("Tamil - Female", "ta-IN","ta-IN-Wavenet-A", SsmlVoiceGender.FEMALE, AudioEncoding.MP3);
 
     public final static String DEFAULT_PRESET = "PRESET_1";
     public final static String DEFAULT_RATE = "1.0";
