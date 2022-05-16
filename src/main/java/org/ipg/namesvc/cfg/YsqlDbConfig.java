@@ -36,6 +36,7 @@ public class YsqlDbConfig extends AbstractYugabyteJdbcConfiguration {
 		poolProperties.setProperty("dataSource.additionalEndpoints",
 				"20.62.193.167:5433,20.121.115.88:5433");
 		HikariConfig hikariConfig = new HikariConfig(poolProperties);
+		hikariConfig.setMaxLifetime(60000); // only let connecitons sit idle for 60 seconds
 		return new HikariDataSource(hikariConfig);
 	}
 
