@@ -15,12 +15,13 @@ public class VoiceService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VoiceService.class);
 
-
     public Optional<ByteString> convert(String text, VoicePreset preset, double desiredRate) {
-        return convert(text, preset.getLanguageCode(), preset.getVoiceName(), preset.getVoiceGender(), preset.getEncoding(), desiredRate);
+        return convert(text, preset.getLanguageCode(), preset.getVoiceName(),
+                preset.getVoiceGender(), preset.getEncoding(), desiredRate);
     }
 
-    public Optional<ByteString> convert(String text, String language, String voiceName, SsmlVoiceGender gender, AudioEncoding encoding, double desiredRate) {
+    public Optional<ByteString> convert(String text, String language, String voiceName,
+                                        SsmlVoiceGender gender, AudioEncoding encoding, double desiredRate) {
 
         // Box the rate into acceptable range
         double rate = adjustRate(desiredRate);
