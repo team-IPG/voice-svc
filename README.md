@@ -38,3 +38,5 @@ https://voice-svc-mh6ib2ntwq-uc.a.run.app/voice/johnny?preset=PRESET2
 
 ### example: optional preset & custom speed
 https://voice-svc-mh6ib2ntwq-uc.a.run.app/voice/johnny?preset=PRESET2&speed=1.2
+
+https://voice-svc-mh6ib2ntwq-uc.a.run.app/voice/ho-say?preset=PRESET_4&rate=1.8
