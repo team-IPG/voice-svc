@@ -33,6 +33,7 @@ jobs:
           java-version: 17
           distribution: 'adopt'
 
+      # Setup GCP Auth (used by app unit/integration tests and GCP build/deploy steps
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
         with:
