@@ -1,5 +1,11 @@
-spring.cloud.gcp.project-id: team-ipg-wf
-
+spring:
+  cloud:
+    gcp:
+      project-id: team-ipg-wf
+      pubsub:
+        subscriber:
+          executor-threads: 4 # default is 4
+          parallel-pull-count:
 # port will be assigned on GCP, default to 8081 local
 server.port: ${PORT:8081}
 

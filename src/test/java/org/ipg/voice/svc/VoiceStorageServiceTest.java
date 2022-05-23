@@ -1,4 +1,4 @@
-package org.ipg.namesvc.svc;
+package org.ipg.voice.svc;
 
 import com.google.protobuf.ByteString;
 import org.junit.jupiter.api.Test;

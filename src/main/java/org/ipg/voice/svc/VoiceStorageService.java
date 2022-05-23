@@ -1,4 +1,4 @@
-package org.ipg.namesvc.svc;
+package org.ipg.voice.svc;
 
 import com.google.api.gax.paging.Page;
 import com.google.cloud.storage.*;
@@ -17,9 +17,7 @@ public class VoiceStorageService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VoiceStorageService.class);
 
-    protected final static String BUCKET = "voice_bucket_ipg";
-
-    //TODO: implement store(voice file to storage)
+    public final static String BUCKET = "voice_bucket_ipg";
 
     /**
      * Retrieve object from bucket
@@ -39,7 +37,7 @@ public class VoiceStorageService {
         Spliterator<Blob> blobIterator = blobs.iterateAll().spliterator();
         List<String> files = StreamSupport.stream(blobIterator, false)
                 .map(blob -> {
-                    LOGGER.info("found file={} of size={}", blob.getName(), blob.getSize());
+                    LOGGER.debug("found file={} of size={}", blob.getName(), blob.getSize());
                     return blob.getName();
                 }).toList();
         return files;
@@ -59,10 +57,24 @@ public class VoiceStorageService {
             return Optional.of(ByteString.copyFrom(storage.readAllBytes(blobId,
                     Storage.BlobSourceOption.shouldReturnRawInputStream(true))));
         } catch ( StorageException se ) {
-            LOGGER.warn("Failed to load requested file={}", objectName, se);
+            LOGGER.warn("Failed to load requested object={}", objectName, se);
             return Optional.empty();
         }
     }
 
+    /**
+     *
+     * @param bucketName
+     * @param id
+     * @param bytes
+     * @return fully qualified link to object
+     */
+    public String createOrUpdate(String bucketName, String id, String contentType, ByteString bytes) {
+        Storage storage = StorageOptions.getDefaultInstance().getService();
+        BlobId blobId = BlobId.of(bucketName, id);
+        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(contentType).build();
+        Blob blob = storage.create(blobInfo, bytes.toByteArray());
+        return blob.getMediaLink();
+    }
 }
 

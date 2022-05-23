@@ -1,11 +1,11 @@
-package org.ipg.namesvc.web;
+package org.ipg.voice.web;
 
 import com.google.cloud.texttospeech.v1beta1.AudioEncoding;
 import com.google.cloud.texttospeech.v1beta1.SsmlVoiceGender;
 import com.google.protobuf.ByteString;
-import org.ipg.namesvc.svc.VoicePreset;
-import org.ipg.namesvc.svc.VoiceService;
-import org.ipg.namesvc.svc.VoiceStorageService;
+import org.ipg.common.VoicePreset;
+import org.ipg.voice.svc.VoiceService;
+import org.ipg.voice.svc.VoiceStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
